@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EverFreely — The AI Revenue Finder</title>
+  <meta name="description" content="Billions in grants, fellowships, and funding go unclaimed every year. EverFreely finds what you qualify for and drafts the applications. You review. You submit." />
+  <meta property="og:title" content="EverFreely — The AI Revenue Finder" />
+  <meta property="og:description" content="Billions in grants, fellowships, and funding go unclaimed every year. EverFreely finds what you qualify for and drafts the applications." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Playfair+Display:ital@1&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --sage: #798370;
+      --dark: #37342f;
+      --cream: #f8f5f1;
+      --warm-gray: #beb9ad;
+      --terracotta: #C96F53;
+      --sage-light: #a3ab9a;
+      --sage-dark: #5a6258;
+      --dark-2: #4a4640;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background-color: var(--dark); color: var(--cream); font-family: 'DM Sans', sans-serif; font-size: 17px; line-height: 1.65; overflow-x: hidden; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E"); pointer-events: none; z-index: 0; opacity: 0.4; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.25rem 2rem; display: flex; align-items: center; justify-content: space-between; background: rgba(55, 52, 47, 0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(190, 185, 173, 0.1); }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.08em; color: var(--cream); text-decoration: none; }
+    .nav-logo span { color: var(--terracotta); }
+    .nav-cta { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--dark); background: var(--terracotta); border: none; padding: 0.6rem 1.4rem; cursor: pointer; text-decoration: none; transition: background 0.2s, transform 0.15s; }
+    .nav-cta:hover { background: #b55d41; transform: translateY(-1px); }
+    .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 8rem 2rem 5rem; position: relative; overflow: hidden; }
+    .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 15% 50%, rgba(121, 131, 112, 0.12) 0%, transparent 60%), radial-gradient(ellipse 50% 40% at 85% 80%, rgba(201, 111, 83, 0.08) 0%, transparent 50%); pointer-events: none; }
+    .butterfly-grid { position: absolute; right: -40px; top: 50%; transform: translateY(-50%); opacity: 0.06; pointer-events: none; }
+    .butterfly-grid svg { width: 520px; height: 520px; }
+    .hero-inner { max-width: 860px; position: relative; z-index: 1; }
+    .eyebrow { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sage-light); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
+    .eyebrow::before { content: ''; display: block; width: 32px; height: 1px; background: var(--sage-light); }
+    h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.5rem, 9vw, 7.5rem); line-height: 0.92; letter-spacing: 0.02em; color: var(--cream); margin-bottom: 2rem; }
+    h1 em { font-family: 'Playfair Display', serif; font-style: italic; color: var(--terracotta); font-size: 0.85em; letter-spacing: 0.01em; }
+    .hero-body { font-size: 1.15rem; font-weight: 300; color: var(--warm-gray); max-width: 560px; line-height: 1.75; margin-bottom: 3rem; }
+    .hero-body strong { color: var(--cream); font-weight: 500; }
+    .waitlist-form { display: flex; gap: 0; max-width: 480px; position: relative; }
+    .waitlist-input { flex: 1; background: rgba(248, 245, 241, 0.07); border: 1px solid rgba(190, 185, 173, 0.25); border-right: none; color: var(--cream); font-family: 'DM Sans', sans-serif; font-size: 0.95rem; padding: 0.9rem 1.25rem; outline: none; transition: border-color 0.2s, background 0.2s; }
+    .waitlist-input::placeholder { color: rgba(190, 185, 173, 0.5); }
+    .waitlist-input:focus { border-color: rgba(121, 131, 112, 0.6); background: rgba(248, 245, 241, 0.1); }
+    .waitlist-btn { font-family: 'Bebas Neue', sans-serif; font-size: 1.05rem; letter-spacing: 0.1em; color: var(--cream); background: var(--terracotta); border: 1px solid var(--terracotta); padding: 0.9rem 1.8rem; cursor: pointer; transition: background 0.2s, transform 0.15s; white-space: nowrap; }
+    .waitlist-btn:hover { background: #b55d41; border-color: #b55d41; }
+    .waitlist-btn:active { transform: scale(0.98); }
+    .waitlist-sub { margin-top: 0.85rem; font-size: 0.78rem; color: rgba(190, 185, 173, 0.5); letter-spacing: 0.03em; }
+    .form-success { display: none; font-size: 0.95rem; color: var(--sage-light); padding: 0.9rem 0; }
+    .section-divider { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, rgba(190, 185, 173, 0.15), transparent); margin: 0; }
+    .gap-section { padding: 6rem 2rem; max-width: 1100px; margin: 0 auto; position: relative; }
+    .section-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sage); margin-bottom: 3rem; }
+    .gap-stat { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 7vw, 5.5rem); line-height: 1; color: var(--cream); margin-bottom: 1.5rem; }
+    .gap-stat span { color: var(--terracotta); }
+    .gap-body { font-size: 1.1rem; font-weight: 300; color: var(--warm-gray); max-width: 620px; line-height: 1.8; }
+    .gap-body strong { color: var(--cream); font-weight: 500; }
+    .how-section { padding: 6rem 2rem; background: rgba(248, 245, 241, 0.03); border-top: 1px solid rgba(190, 185, 173, 0.08); border-bottom: 1px solid rgba(190, 185, 173, 0.08); }
+    .how-inner { max-width: 1100px; margin: 0 auto; }
+    .how-header { display: flex; align-items: baseline; gap: 1.5rem; margin-bottom: 4rem; }
+    .how-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); letter-spacing: 0.03em; color: var(--cream); }
+    .how-title em { font-family: 'Playfair Display', serif; font-style: italic; color: var(--sage-light); font-size: 0.75em; }
+    .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0; }
+    .step { padding: 2.5rem 2rem 2.5rem 0; border-right: 1px solid rgba(190, 185, 173, 0.1); position: relative; }
+    .step:last-child { border-right: none; padding-right: 0; }
+    .step:not(:first-child) { padding-left: 2rem; }
+    .step-num { font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem; line-height: 1; color: rgba(121, 131, 112, 0.25); margin-bottom: 1rem; display: block; }
+    .step-title { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sage-light); margin-bottom: 0.75rem; }
+    .step-body { font-size: 0.95rem; font-weight: 300; color: var(--warm-gray); line-height: 1.7; }
+    .finds-section { padding: 6rem 2rem; max-width: 1100px; margin: 0 auto; }
+    .finds-header { margin-bottom: 3.5rem; }
+    .finds-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 4rem); letter-spacing: 0.03em; color: var(--cream); margin-bottom: 0.75rem; }
+    .finds-sub { font-size: 1rem; font-weight: 300; color: var(--warm-gray); max-width: 480px; }
+    .types-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1px; background: rgba(190, 185, 173, 0.1); border: 1px solid rgba(190, 185, 173, 0.1); }
+    @media (max-width: 900px) { .types-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 500px) { .types-grid { grid-template-columns: 1fr; } }
+    .type-card { background: var(--dark); padding: 1.75rem 1.5rem; transition: background 0.2s; }
+    .type-card:hover { background: rgba(248, 245, 241, 0.04); }
+    .type-icon { font-size: 1.4rem; margin-bottom: 0.75rem; display: block; }
+    .type-name { font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--cream); margin-bottom: 0.4rem; }
+    .type-desc { font-size: 0.82rem; font-weight: 300; color: var(--warm-gray); line-height: 1.6; }
+    .who-section { padding: 6rem 2rem; background: rgba(201, 111, 83, 0.05); border-top: 1px solid rgba(201, 111, 83, 0.12); border-bottom: 1px solid rgba(201, 111, 83, 0.12); }
+    .who-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
+    .who-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 0.95; letter-spacing: 0.03em; color: var(--cream); margin-bottom: 1.5rem; }
+    .who-title em { font-family: 'Playfair Display', serif; font-style: italic; color: var(--terracotta); font-size: 0.82em; }
+    .who-body { font-size: 1rem; font-weight: 300; color: var(--warm-gray); line-height: 1.8; }
+    .who-list { list-style: none; display: flex; flex-direction: column; gap: 0; }
+    .who-item { padding: 1rem 0; border-bottom: 1px solid rgba(190, 185, 173, 0.1); font-size: 0.95rem; color: var(--warm-gray); font-weight: 300; display: flex; align-items: center; gap: 1rem; }
+    .who-item:first-child { border-top: 1px solid rgba(190, 185, 173, 0.1); }
+    .who-item::before { content: '→'; color: var(--sage-light); font-size: 0.85rem; flex-shrink: 0; }
+    .built-section { padding: 6rem 2rem; max-width: 860px; margin: 0 auto; text-align: center; }
+    .built-quote { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(1.4rem, 3vw, 2rem); line-height: 1.5; color: var(--cream); margin-bottom: 2rem; position: relative; }
+    .built-quote::before { content: '“'; font-size: 4rem; color: var(--terracotta); opacity: 0.4; position: absolute; top: -1rem; left: -1.5rem; line-height: 1; }
+    .built-attribution { font-size: 0.82rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: var(--sage-light); }
+    .built-attribution span { color: var(--warm-gray); font-weight: 300; text-transform: none; letter-spacing: 0; }
+    .cta-section { padding: 8rem 2rem; background: rgba(248, 245, 241, 0.03); border-top: 1px solid rgba(190, 185, 173, 0.08); text-align: center; }
+    .cta-inner { max-width: 620px; margin: 0 auto; }
+    .cta-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 6vw, 5rem); letter-spacing: 0.03em; line-height: 0.95; color: var(--cream); margin-bottom: 1.5rem; }
+    .cta-title em { font-family: 'Playfair Display', serif; font-style: italic; color: var(--terracotta); font-size: 0.85em; }
+    .cta-body { font-size: 1rem; font-weight: 300; color: var(--warm-gray); line-height: 1.8; margin-bottom: 2.5rem; }
+    .cta-form { display: flex; gap: 0; max-width: 440px; margin: 0 auto 0.85rem; }
+    .cta-form-success { display: none; font-size: 0.95rem; color: var(--sage-light); padding: 0.9rem 0; }
+    footer { padding: 2.5rem 2rem; border-top: 1px solid rgba(190, 185, 173, 0.08); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 0.08em; color: var(--warm-gray); text-decoration: none; }
+    .footer-logo span { color: var(--terracotta); }
+    .footer-text { font-size: 0.78rem; color: rgba(190, 185, 173, 0.4); letter-spacing: 0.03em; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { font-size: 0.78rem; color: rgba(190, 185, 173, 0.4); text-decoration: none; letter-spacing: 0.05em; text-transform: uppercase; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--warm-gray); }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    .hero-inner > * { animation: fadeUp 0.7s ease both; }
+    .eyebrow { animation-delay: 0.1s; }
+    h1 { animation-delay: 0.2s; }
+    .hero-body { animation-delay: 0.35s; }
+    .waitlist-form { animation-delay: 0.45s; }
+    .waitlist-sub { animation-delay: 0.5s; }
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.25rem; }
+      .hero { padding: 7rem 1.25rem 4rem; }
+      .butterfly-grid { display: none; }
+      .gap-section, .finds-section { padding: 4rem 1.25rem; }
+      .how-section { padding: 4rem 1.25rem; }
+      .steps { grid-template-columns: 1fr; gap: 0; }
+      .step { border-right: none; border-bottom: 1px solid rgba(190, 185, 173, 0.1); padding: 2rem 0; }
+      .step:last-child { border-bottom: none; }
+      .step:not(:first-child) { padding-left: 0; }
+      .who-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .who-section { padding: 4rem 1.25rem; }
+      .built-section { padding: 4rem 1.25rem; }
+      .built-quote::before { left: 0; top: -0.5rem; }
+      .cta-section { padding: 5rem 1.25rem; }
+      .waitlist-form, .cta-form { flex-direction: column; }
+      .waitlist-input, .cta-form .waitlist-input { border-right: 1px solid rgba(190, 185, 173, 0.25); border-bottom: none; }
+      .waitlist-btn, .cta-form .waitlist-btn { width: 100%; text-align: center; }
+      footer { flex-direction: column; align-items: flex-start; padding: 2rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="#" class="nav-logo">Ever<span>Freely</span><sup style="font-size:0.45em;vertical-align:super;letter-spacing:0;">™</sup></a>
+    <a href="#waitlist" class="nav-cta">Join Waitlist</a>
+  </nav>
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="butterfly-grid">
+      <svg viewBox="0 0 520 520" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <g opacity="1">
+          <rect x="60" y="60" width="400" height="400" rx="4" stroke="#798370" stroke-width="0.5" fill="none"/>
+          <rect x="100" y="100" width="320" height="320" rx="4" stroke="#798370" stroke-width="0.5" fill="none"/>
+          <line x1="60" y1="180" x2="480" y2="180" stroke="#798370" stroke-width="0.5"/>
+          <line x1="60" y1="260" x2="480" y2="260" stroke="#798370" stroke-width="0.5"/>
+          <line x1="60" y1="340" x2="480" y2="340" stroke="#798370" stroke-width="0.5"/>
+          <line x1="180" y1="60" x2="180" y2="480" stroke="#798370" stroke-width="0.5"/>
+          <line x1="260" y1="60" x2="260" y2="480" stroke="#798370" stroke-width="0.5"/>
+          <line x1="340" y1="60" x2="340" y2="480" stroke="#798370" stroke-width="0.5"/>
+          <circle cx="180" cy="180" r="5" fill="none" stroke="#C96F53" stroke-width="1"/>
+          <circle cx="260" cy="180" r="3" fill="#798370"/>
+          <circle cx="340" cy="180" r="5" fill="none" stroke="#798370" stroke-width="1"/>
+          <circle cx="180" cy="260" r="3" fill="#C96F53"/>
+          <circle cx="260" cy="260" r="8" fill="none" stroke="#798370" stroke-width="1.5"/>
+          <circle cx="340" cy="260" r="3" fill="#798370"/>
+          <circle cx="180" cy="340" r="5" fill="none" stroke="#798370" stroke-width="1"/>
+          <circle cx="260" cy="340" r="3" fill="#798370"/>
+          <circle cx="340" cy="340" r="5" fill="none" stroke="#C96F53" stroke-width="1"/>
+          <path d="M 260 260 Q 180 180 100 220 Q 140 300 260 260 Z" stroke="#798370" stroke-width="0.75" fill="none"/>
+          <path d="M 260 260 Q 340 180 420 220 Q 380 300 260 260 Z" stroke="#798370" stroke-width="0.75" fill="none"/>
+          <path d="M 260 260 Q 180 340 100 300 Q 140 220 260 260 Z" stroke="#798370" stroke-width="0.5" fill="none" opacity="0.6"/>
+          <path d="M 260 260 Q 340 340 420 300 Q 380 220 260 260 Z" stroke="#798370" stroke-width="0.5" fill="none" opacity="0.6"/>
+          <circle cx="260" cy="260" r="12" fill="none" stroke="#C96F53" stroke-width="1"/>
+          <circle cx="260" cy="260" r="4" fill="#C96F53" opacity="0.6"/>
+        </g>
+      </svg>
+    </div>
+    <div class="hero-inner">
+      <p class="eyebrow">Now accepting waitlist</p>
+      <h1>The money<br/>is <em>already</em><br/>there.</h1>
+      <p class="hero-body">Billions in grants, fellowships, pitch competitions, and funding opportunities go unclaimed every year. <strong>Not because the money isn't there.</strong> Because the people who qualify never find it, or don't have time to apply.<br/><br/>EverFreely™ closes that gap.</p>
+      <form class="waitlist-form" id="hero-form" onsubmit="handleSubmit(event, 'hero')">
+        <input class="waitlist-input" type="email" name="email" placeholder="your@email.com" required autocomplete="email" />
+        <button class="waitlist-btn" type="submit">Join Waitlist</button>
+      </form>
+      <p class="waitlist-sub">Early access. No spam. Unsubscribe anytime.</p>
+      <p class="form-success" id="hero-success">You're on the list. We'll be in touch.</p>
+    </div>
+  </section>
+  <div class="section-divider"></div>
+  <section class="gap-section">
+    <p class="section-label">The problem</p>
+    <p class="gap-stat">$<span>Billions</span><br/>left unclaimed.</p>
+    <p class="gap-body">Grant consultants charge <strong>$5,000 to $20,000 upfront</strong> — plus 10 to 15 percent of whatever you win — to do what should happen automatically. Speaking agents take 15 to 20 percent of every booking. Brand deal agencies run on retainers plus commission.<br/><br/>Most people can't afford any of these. And even those who can are still missing thousands of smaller opportunities that add up to significant capital over time.<br/><br/>EverFreely™ replaces all three for a flat monthly fee, runs continuously, and applies at a volume no human operation can match.</p>
+  </section>
+  <div class="section-divider"></div>
+  <section class="how-section">
+    <div class="how-inner">
+      <div class="how-header"><p class="section-label">How it works</p></div>
+      <h2 class="how-title" style="margin-bottom: 3rem;">The system<br/><em>handles the pursuit.</em></h2>
+      <div class="steps">
+        <div class="step"><span class="step-num">01</span><p class="step-title">Profile once</p><p class="step-body">Complete a one-time setup. Business profile. Student profile if applicable. A library of your own pre-written materials that the agent draws from. Twenty minutes. Never repeated.</p></div>
+        <div class="step"><span class="step-num">02</span><p class="step-title">Agent discovers</p><p class="step-body">Every day the agent searches curated sources across grants, scholarships, fellowships, pitch competitions, sponsorships, and more. Scored against your exact profile.</p></div>
+        <div class="step"><span class="step-num">03</span><p class="step-title">Drafts assemble</p><p class="step-body">For every opportunity that clears your threshold, a complete draft application assembles from your asset library. Your voice. Your facts. Never fabricated.</p></div>
+        <div class="step"><span class="step-num">04</span><p class="step-title">You review. You submit.</p><p class="step-body">Approve, edit, or skip. Everything submission-ready with a direct link to the application portal and a checklist of supporting documents — submitted with a single click. Nothing goes out without your sign-off.</p></div>
+      </div>
+    </div>
+  </section>
+  <section class="finds-section">
+    <div class="finds-header">
+      <p class="section-label">Opportunity types</p>
+      <h2 class="finds-title">Five categories.<br/>One pipeline.</h2>
+      <p class="finds-sub">The agent monitors every category of non-dilutive revenue available to you.</p>
+    </div>
+    <div class="types-grid">
+      <div class="type-card"><span class="type-icon">🏛️</span><p class="type-name">Business Grants</p><p class="type-desc">Private foundation and public government funding matched to your stage, industry, demographics, and location — for business owners and organizations ready to pursue non-dilutive capital.</p></div>
+      <div class="type-card"><span class="type-icon">🎓</span><p class="type-name">Fellowships, Scholarships &amp; Research</p><p class="type-desc">Academic awards, cohort fellowships with stipends, and research grants matched to your degree program, field, and demographics.</p></div>
+      <div class="type-card"><span class="type-icon">🤝</span><p class="type-name">Sponsorships &amp; Brand Deals</p><p class="type-desc">Paid partnerships and brand deals matched to your audience size, platform presence, content niche, and demographic alignment.</p></div>
+      <div class="type-card"><span class="type-icon">📰</span><p class="type-name">Press &amp; Awards</p><p class="type-desc">Media recognition programs with cash prizes or visibility that converts — Fast Company, Forbes, Black Enterprise, Essence, and more.</p></div>
+      <div class="type-card"><span class="type-icon">🎤</span><p class="type-name">Paid Speaking</p><p class="type-desc">Bureau-tracked keynote bookings, podcast guest opportunities, and speaking engagements that function as non-dilutive revenue.</p></div>
+    </div>
+  </section>
+  <div class="section-divider"></div>
+  <section class="who-section" id="who">
+    <div class="who-inner">
+      <div>
+        <h2 class="who-title">Built for people<br/>who are <em>already</em><br/>building.</h2>
+        <p class="who-body">You don't need to be convinced there's money out there. You know it. You just don't have time to find it, track it, and write a compelling application for every opportunity you qualify for — on top of everything else you're doing.<br/><br/>That's the job EverFreely™ takes off your plate.</p>
+      </div>
+      <ul class="who-list">
+        <li class="who-item">Consultants and coaches generating real revenue</li>
+        <li class="who-item">Speakers who feel the production weight after every keynote</li>
+        <li class="who-item">Fractional executives building portfolio careers</li>
+        <li class="who-item">Creators with the audience but not the backend</li>
+        <li class="who-item">Graduate students finishing degrees with financial need</li>
+        <li class="who-item">Early-stage founders pre-revenue or just getting started</li>
+        <li class="who-item">Service providers in fields that never had a grant consultant</li>
+        <li class="who-item">Business owners who built without a safety net</li>
+      </ul>
+    </div>
+  </section>
+  <section class="built-section">
+    <p class="section-label" style="margin-bottom: 2rem;">Built by the first user</p>
+    <blockquote class="built-quote">I built EverFreely™ because I needed it. I am a Black woman founder, a graduate student completing an MS in Data Science, and a business owner who has never had access to a grant consultant, a speaking agent, or a brand deal agency. I built the system that should have existed. I am the first user. The proof comes before the product launches.</blockquote>
+    <p class="built-attribution">Makeda Boehm &nbsp;·&nbsp; <span>Founder, Seed &amp; Society™ LLC</span></p>
+  </section>
+  <section class="cta-section" id="waitlist">
+    <div class="cta-inner">
+      <p class="section-label" style="margin-bottom: 1.5rem;">Join the waitlist</p>
+      <h2 class="cta-title">There's money<br/>with your <em>name</em><br/>on it.</h2>
+      <p class="cta-body">EverFreely™ is in active build. Waitlist members get early access, founding member pricing, and first look at every feature as it ships.</p>
+      <form class="cta-form" id="cta-form" onsubmit="handleSubmit(event, 'cta')">
+        <input class="waitlist-input" type="email" name="email" placeholder="your@email.com" required autocomplete="email" />
+        <button class="waitlist-btn" type="submit">Join Waitlist</button>
+      </form>
+      <p class="waitlist-sub">Early access. No spam. Unsubscribe anytime.</p>
+      <p class="form-success cta-form-success" id="cta-success">You're on the list. We'll be in touch.</p>
+    </div>
+  </section>
+  <footer>
+    <a href="#" class="footer-logo">Ever<span>Freely</span><sup style="font-size:0.45em;vertical-align:super;letter-spacing:0;">™</sup></a>
+    <p class="footer-text">© 2026 Seed &amp; Society™ LLC. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="https://seedandsociety.com">Seed &amp; Society™</a>
+      <a href="https://makedaboehm.com">Makeda Boehm</a>
+    </div>
+  </footer>
+  <script>
+    async function handleSubmit(e, formId) {
+      e.preventDefault();
+      const form = e.target;
+      const email = form.querySelector('input[type="email"]').value;
+      const btn = form.querySelector('button');
+      const successEl = document.getElementById(formId + '-success');
+      const subText = form.nextElementSibling;
+      btn.textContent = 'Joining...';
+      btn.disabled = true;
+      try {
+        const response = await fetch('/api/subscribe', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email }) });
+        const data = await response.json();
+        if (response.ok && data.success) {
+          form.style.display = 'none';
+          if (subText && subText.classList.contains('waitlist-sub')) subText.style.display = 'none';
+          successEl.style.display = 'block';
+        } else { throw new Error(data.error || 'Submission failed'); }
+      } catch (err) {
+        btn.textContent = 'Try Again';
+        btn.disabled = false;
+        btn.style.background = '#8b3a22';
+        console.error('Submission error:', err);
+        const existing = form.parentNode.querySelector('.form-error');
+        if (!existing) {
+          const errMsg = document.createElement('p');
+          errMsg.className = 'form-error';
+          errMsg.style.cssText = 'margin-top:.5rem;font-size:.8rem;color:#C96F53;';
+          errMsg.textContent = 'Something went wrong. Try again or email hello@everfreely.com.';
+          form.parentNode.insertBefore(errMsg, form.nextSibling);
+        }
+      }
+    }
+    document.querySelector('.nav-cta').addEventListener('click', function(e) { e.preventDefault(); document.getElementById('waitlist').scrollIntoView({ behavior: 'smooth' }); });
+    const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.style.opacity = '1'; entry.target.style.transform = 'translateY(0)'; } }); }, { threshold: 0.1 });
+    document.querySelectorAll('.step, .type-card, .gap-stat, .gap-body').forEach(el => { el.style.opacity = '0'; el.style.transform = 'translateY(20px)'; el.style.transition = 'opacity 0.6s ease, transform 0.6s ease'; observer.observe(el); });
+  </script>
+</body>
+</html>
